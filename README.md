@@ -87,18 +87,12 @@ tlias-web-management/
 - 除 `POST /login` 外，所有接口都需要请求头 `token: <登录返回的 JWT>`。
 - 通过 nginx 访问时前端统一走 `/api/` 前缀（nginx 会剥掉 `/api` 再转发到后端）。
 
-## 安全说明（重要）
-
-仓库中**不包含任何账号、密码或密钥**：
-
 - 数据库账号密码 → 环境变量 `DB_USERNAME` / `DB_PASSWORD`
 - 阿里云 OSS 的 AccessKey / Bucket → 环境变量 `OSS_BUCKET_NAME` / `OSS_ACCESS_KEY_ID` / `OSS_ACCESS_KEY_SECRET`
 
-如果你 fork 后要改配置，请**不要**把真实密码提交上去；本地私密配置可放在 `application-local.yml`（已被 `.gitignore` 忽略）。
+请不要把真实密码提交上去；本地私密配置可放在 `application-local.yml。
 
-## 已知小坑
+## 注意：
 
-- `dept.name` 字段是 `varchar(10)`，部门名称超过 10 个字符会报 `Data too long`，前端最好限制输入长度。
-- 启动时控制台会出现一段大写字母的 `... is intercepting.` 横幅，那是 **PageHelper 分页插件**自己的
-  banner，不是报错。
+- `dept.name` 字段是 `varchar(10)`，部门名称超过 10 个字符会报 `Data too long`，限制输入长度。
 - 项目依赖 JDK 21+（`pom.xml` 里 `java.version=21`）。
