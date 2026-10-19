@@ -38,8 +38,7 @@ tlias-web-management/
 ```
 
 > 说明：`frontend-dist/` 是编译产物（可直接用 nginx 托管）。仓库**不含** Vue 源码工程根目录里的 `src/`
-> （原始工程只有配置文件，源码缺失）。需要二次开发前端时，把你的 `vue-tlias-management` 工程放进来，
-> `npm install && npm run build`，把 `dist/` 覆盖到 `frontend-dist/` 即可。
+> 
 
 ## 快速开始
 
