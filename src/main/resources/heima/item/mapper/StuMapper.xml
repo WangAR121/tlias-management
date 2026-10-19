@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="heima.item.mapper.StuMapper">
+    <update id="update">
+        update student
+        <set>
+            <if test="idCard !=null and idCard !=''">
+                id_card=#{idCard},
+            </if>
+            <if test="isCollege !=null">
+                is_college=#{isCollege},
+            </if>
+            <if test="address !=null and address !=''">
+                address=#{address},
+            </if>
+            <if test="graduationDate !=null">
+                graduation_date=#{graduationDate},
+            </if>
+            name=#{name},phone=#{phone},gender=#{gender},degree=#{degree},no=#{no},
+            violation_count=#{violationCount},violation_score=#{violationScore},clazz_id=#{clazzId},update_time=#{updateTime}
+        </set> where id=#{id}
+    </update>
+    <delete id="delete">
+        delete from student where id in
+                            <foreach collection="list" item="id" open="(" separator="," close=")">
+                                #{id}
+                            </foreach>
+    </delete>
+    <select id="findAll" resultType="heima.item.pojo.Student">
+        select s.*,c.name clazzName from student s left join clazz c on s.clazz_id = c.id
+        <where>
+            <if test="name !=null and name!=''">
+                s.name like concat("%",#{name},"%")
+            </if>
+            <if test="degree !=null">
+                and s.degree=#{degree}
+            </if>
+            <if test="clazzId !=null">
+                and s.clazz_id=#{clazzId}
+            </if>
+        </where> order by update_time desc
+    </select>
+    <select id="getStudentData" resultType="java.util.Map">
+        select (case when degree=1 then '初中'
+                    when degree=2 then '高中'
+                    when degree=3 then '大专'
+                    when degree=4 then  '本科'
+                    when degree=5 then '硕士'
+                    when degree=6 then '博士'
+                    else '其他' end
+            ) name,
+            count(*) value from student group by degree
+    </select>
+    <select id="getStuCount" resultType="java.util.Map">
+        select c.name clazzName,count(*) value from student s left join clazz c on s.clazz_id = c.id group by clazzname order by value
+    </select>
+</mapper>

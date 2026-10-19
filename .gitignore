@@ -1,0 +1,26 @@
+# 仓库根 .gitignore —— 编译产物、IDE 配置、依赖、日志、本地私密配置都不上传
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+node_modules/
+dist/
+frontend/node_modules/
+frontend/dist/
+
+logs/
+*.log
+
+# 本地私密配置（自己加），不要提交
+src/main/resources/application-local.yml
+src/main/resources/application-local.yaml
+frontend/.env.local
+frontend/.env.*.local
+
+.DS_Store
+Thumbs.db

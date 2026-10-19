@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="heima.item.mapper.OperateLogMapper">
+    <!-- 日志列表分页查询：左连接 emp 取操作人姓名 -->
+    <select id="page" resultType="heima.item.pojo.OperateLog">
+        select operate_log.*, emp.name operateEmpName
+        from operate_log
+        left join emp on operate_log.operate_emp_id = emp.id
+        order by operate_time desc, id desc
+    </select>
+</mapper>
